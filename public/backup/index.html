@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>탭이름</title>
+        <link rel="stylesheet" href="./style.css">
+        <script type="text/javascript" src="./test.js"></script>
+    </head>
+    <body>
+        <h1>고급웹프로그래밍 강의</h1>
+        <h3 id="chapterText">3주차</h3>
+
+        <p>HTML 생성하기 실습</p>
+        <img src="/assets/다운로드.jpg">
+        <ul>
+            <li class="smallTxt">1주차</li>
+            <li class="smallTxt">2주차</li>
+            <li class="smallTxt">3주차</li>
+            <li class="smallTxt">4주차</li>
+        </ul>
+        <ol>
+            <li class="largeTxt">1주차</li>
+            <li class="largeTxt">2주차</li>
+            <li class="largeTxt">3주차</li>
+            <li class="largeTxt">4주차</li>
+        </ol>
+        <script>
+            const h3Element = document.querySelector("#chapterText");
+            h3Element.innerHTML = '4주차';
+            console.log(h3Element);
+
+            // const liElements = document.querySelectorAll('ul > li');
+            // console.log(liElements);
+            // for (let i = 0; i < liElements.length; i++) {
+            //     liElements[i].innerHTML = `${i + 10} 주차`;
+            // }
+
+            const liElements = document.querySelectorAll('li');
+            liElements.forEach(element => {
+                element.innerHTML += '장';
+                // element.innerHTML = element.innerHTML + '장';
+            });
+
+            const largeTxtElements = document.querySelectorAll('.largeTxt');
+            largeTextElemen
+        </script>
+    </body>
+</html>

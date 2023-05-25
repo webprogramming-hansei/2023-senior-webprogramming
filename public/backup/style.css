@@ -1,0 +1,19 @@
+h1 {
+    color: red;
+}
+
+h3 {
+    color: blue;
+}
+
+#chapterText, li {
+    color: purple;
+}
+
+.smallTxt {
+    font-size: 8pt;
+}
+
+.largeTxt {
+    font-size: 24pt;
+}
