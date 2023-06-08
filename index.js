@@ -5,6 +5,12 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(session({
+  secret: 'samplekey',
+  // resave: false,
+  // saveUninitialized: true,
+  cookie: { secure: true }
+}));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/assets", express.static(path.join(__dirname, "assets")));
 app.set("view engine", "ejs");
@@ -13,6 +19,42 @@ const accounts = [];
 /*
 { id: '', password: '' }
 */
+
+function isAuthenticated (req, res, next) {
+  if (req.session.account) next()
+  else next('route')
+}
+
+app.post("/login", (req, res) => {
+  // 파라미터로 ID와 password 수신
+  const { id, password } = req.body;
+  // 넘어온 ID와 일치하는 계정 찾기
+  const account = accounts.find(account => account.id === id);
+  // 일치하는 계정이 없을 때,
+  if (account === undefined) {
+    return res.json({ result: 'Fail', message: 'Not Found'});
+  }
+
+  // 일치하는 계정을 찾았으면, 비밀번호 해시 후 비교
+  bcrypt.hash(password, 10, function (err, hash) {    
+    if (account.hash === hash) {
+      // 일치하면 로그인 성공
+      req.session.account = account.id;
+      req.session.save(function (err) {
+        if (err) return next(err)
+        res.json({ message: "success" });
+        // res.redirect('/')
+      });
+    } else {
+      // 불일치하면 로그인 실패
+      res.json({ message: "password invalidate" });
+    }    
+  });
+  
+
+
+  res.json({ message: 'success' });
+});
 
 /**
  * 회원가입 API
